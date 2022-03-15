@@ -37,6 +37,7 @@ router.post('/add-products', (req, res) => {
         res.render("admin/add-products");
       } else {
         console.log(err);
+        
       }
     })
     
