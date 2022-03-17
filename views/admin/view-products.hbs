@@ -10,6 +10,7 @@
             <th scope="col">Name</th>
             <th scope="col">Category</th>
             <th scope="col">Description</th>
+            <th scope="col">Price</th>
             <th scope="col">Image</th>
             </tr>
         </thead>
@@ -17,10 +18,11 @@
             {{#each products}}
             <tr>
             <th scope="row">{{@index}}</th>
-            <td>{{this.name}}</td>
-            <td>{{this.Category}}</td>
-            <td>{{this.description}}</td>
-            <td><img style="width: 75px;height:75px;" src="{{this.image}}"></td>
+            <td>{{this.Name}}</td>
+            <td>{{this.category}}</td>
+            <td>{{this.Description}}</td>
+            <td>{{this.Price}}</td>
+            <td><img style="width: 75px;height:75px;" src="/product-images/{{this._id}}.jpg"></td>
             </tr>
             {{/each}}
         </tbody>
