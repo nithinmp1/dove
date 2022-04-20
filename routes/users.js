@@ -14,10 +14,15 @@ const verfyLogin = (req, res, next) => {
 /* GET home page. */
 router.get('/', function(req, res, next) {
     let user = req.session.user;
-    console.log('fffffffffffffffffffffff', user);
+    let cartCount = null
+    if (req.session.user) {
+        userHelper.getCartCount(req.session.user._id).then((response) => {
+            cartCount = response
+        })
+    }
+    
     productHelper.getAllProducts().then((products) => {
-        console.log(products);
-        res.render('user/view-products', { admin: false, products, user });
+        res.render('user/view-products', { admin: false, products, user, cartCount});
     })
 
     // res.render('index', { products, admin: false });
@@ -71,15 +76,17 @@ router.get('/logout', (req, res) => {
 
 
 router.get('/cart', verfyLogin, async(req, res) => {
-    let products = await userHelper.getCartProducts(req.session.user._id).
-    res.render('user/cart');
+    let products = await userHelper.getCartProducts(req.session.user._id)
+    console.log(products);
+    res.render('user/cart', {products,user:req.session.user});
 })
 
 
 
-router.get('/add-tot-cart/:id', (req, res) => {
+router.get('/add-to-cart/:id', (req, res) => {
+    console.log('api call');
     userHelper.addToCart(req.params.id, req.session.user._id).then(() => {
-        res.redirect('/')
+        // res.redirect('/')
     })
 })
 
