@@ -91,6 +91,29 @@ router.get('/add-to-cart/:id', (req, res) => {
     })
 })
 
+router.post('/change-product-quantity', (req, res, next) => {
+    console.log('ddddddd',req.body);
+    userHelper.changeProductQuantity(req.body).then((response) => {
+
+        console.log('ffffffffffffffffffffffffffffffffffffff', response);
+        res.json(response)
+    })
+})
+
+router.get('/remove/:cartId/:productId', (req, res) => {
+     userHelper.removeItemFromCart(req.params.cartId,req.params.productId).then((response) => {
+        if (response) {
+            res.redirect('/cart')
+        }
+    })
+})
+
+
+router.get('/place-order', verfyLogin, async(req, res) => {
+    let total = await userHelper.getTotalAmount(req.session.user._id)
+    res.render('user/place-order');
+})
+
 
 
 
