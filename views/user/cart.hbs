@@ -9,6 +9,7 @@
                     <th scope="col">Quantity</th>
                 </tr>
             </thead>
+            {{!-- <h1>{{user._id}}</h1> --}}
             <tbody>
                 {{#each products}}
                 <tr>
@@ -17,10 +18,11 @@
                     <td>{{this.products.Name}}</td>
                     <td>&#8377; {{this.products.Price}}</td>
                     {{!-- {{/each}} --}}
+                    
                     <td>
-                        <button class="cart-item-count mr-3" onclick="changeQuantity('{{this._id}}','{{this.products._id}}',-1)">-</button>
+                        <button class="cart-item-count mr-3" onclick="changeQuantity('{{this._id}}','{{this.products._id}}','{{../user._id}}',-1)">-</button>
                         <span id="{{this.products._id}}">{{this.quantity}}</span>
-                        <button class="cart-item-count ml-3" onclick="changeQuantity('{{this._id}}','{{this.products._id}}',1)">+</button>
+                        <button class="cart-item-count ml-3" onclick="changeQuantity('{{this._id}}','{{this.products._id}}','{{../user._id}}',1)">+</button>
                     </td>
                     <td>
                         <a href="/remove/{{this._id}}/{{this.products._id}}" class="btn btn-danger">Remove</a>
@@ -31,7 +33,7 @@
         </table>
         <hr>
         <div class="float-right pr-5">
-            <h3 class="float-left mr-5">Total &#8377; 100000</h3>
+            <h3 class="float-left mr-5">Total &#8377; <span id="total">{{totalValue}}</span></h3>
             <a href="/place-order" class="btn btn-success mt-3" style="width:100%">Place Order</a>
         </div>
     </div>
@@ -41,7 +43,7 @@
 
 
 <script>
-    function changeQuantity(cartId, proId, count) {
+    function changeQuantity(cartId, proId, userId, count) {
         let quantity = parseInt(document.getElementById(proId).innerHTML)
         console.log(quantity)
         count = parseInt(count)
@@ -52,7 +54,8 @@
                 cart : cartId,
                 product : proId,
                 count : count,
-                quantity : quantity
+                quantity : quantity,
+                userId : userId
             },
             method : 'post',
             success : (response) => {
@@ -61,7 +64,9 @@
                     alert("Product removed from cart")
                     location.reload()
                 } else {
+                    console.log(response)
                     document.getElementById(proId).innerHTML = quantity + count
+                    document.getElementById('total').innerHTML = response.total
                 }
             }
         })

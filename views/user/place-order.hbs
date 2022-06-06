@@ -18,15 +18,16 @@
 
                 <div class="col-md-4">
                     <div class="container mt-5 ml-5 checkout">
-                        <h5>Total Amount : RS.3456</h5>
+                        <h5>Total Amount : RS.{{total}}</h5>
                         <hr>
                         <div class="payment">
                             <label class="radio-inline">
                                 <input type="radio" name="payment-method" value="COD" checked>COD
                             </label>
                             <label class="radio-inline mt-2">
-                                <input type="radio" name="payment-method" value="COD" checked>Online Payment
+                                <input type="radio" name="payment-method" value="ONLINE" checked>Online Payment
                             </label>
+                            <input type="hidden" name="userId" value="{{user._id}}">
                             <button class="btn btn-primary float-right">Checkout</button>
                         </div>
                     </div>
@@ -54,3 +55,19 @@
         padding-bottom: 16px;
     }
 </style>
+
+
+
+<script>
+    $("#checkout-form").submit((e) => {
+        e.preventDefault()
+        $.ajax({
+            url : '/place-order',
+            method : 'post',
+            data : $('#checkout-form').serialize(),
+            success : (response) => {
+                alert(response)
+            }
+        })
+    })
+</script>
