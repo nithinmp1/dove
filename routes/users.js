@@ -132,6 +132,20 @@ router.get('/order-success', (req, res) => {
 })
 
 
+router.get('/orders', verfyLogin,async(req, res) => {
+    let orders = await userHelper.getUserOrders(req.session.user._id)
+    console.log(orders);
+    res.render('user/orders', {user:req.session.user,orders})
+})
+
+
+router.get('/view-order-products/:id', async(req, res) => {
+    let products = await userHelper.getOrderProducts(req.params.id)
+    console.log('sssssssssssssssssssssssssssssssssss'+products);
+    res.render('user/view-order-products', {user:req.session.user,products})
+})
+
+
 
 
 module.exports = router;
