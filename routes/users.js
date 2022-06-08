@@ -1,3 +1,4 @@
+const { response } = require('express');
 var express = require('express');
 var router = express.Router();
 var productHelper = require('../helpers/product-helpers');
@@ -117,8 +118,17 @@ router.get('/place-order', verfyLogin, async(req, res) => {
 })
 
 
-router.post('/place-order', (req, res) => {
-    console.log(req.body);
+router.post('/place-order', async(req, res) => {
+    let products = await userHelper.getCartProductList(req.body.userId)
+    let totalPrice = await userHelper.getTotalAmount(req.body.userId)
+    userHelper.placeOrder(req.body,products,totalPrice).then((response) => {
+        res.json({status:true})
+    })
+})
+
+
+router.get('/order-success', (req, res) => {
+    res.render('user/order-success',{user:req.session.user})
 })
 
 
