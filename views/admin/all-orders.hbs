@@ -1,0 +1,46 @@
+ <section>
+    <div class="container">
+        {{!-- <div class="row mt-5">
+            <a style="margin-bottom:15px;" href="/admin/add-products" class="btn btn-success ml-auto">Add Products</a>
+        </div> --}}
+        <table class="table mt-5" id="productsTable">
+        <thead>
+            <tr>
+            <th scope="col">No</th>
+            <th scope="col">Order ID</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Customer Email</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Payment Method</th>
+            <th scope="col">Status</th>
+            <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each orders}}
+            <tr>
+            <th scope="row">{{@index}}</th>
+            <td>{{this._id}}</td>
+            <td>{{this.users.Name}}</td>
+            <td>{{this.users.Email}}</td>
+            <td>{{this.totalAmount}}</td>
+            <td>{{this.paymentMethod}}</td>
+            <td>{{this.status}}</td>
+            
+            <td>
+                <a href="/admin/edit-product/{{this._id}}" class="btn btn-primary">View Details</a>
+                {{!-- <a href="/admin/delete-product/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you sure to want delete {{this.Name}}')">Delete</a> --}}
+                
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+        </table>
+    </div>
+</section>
+
+<script>
+    $(document).ready( function () {
+    $('#productsTable').DataTable();
+} );
+</script>

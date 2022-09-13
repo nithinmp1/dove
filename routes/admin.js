@@ -64,6 +64,17 @@ router.post('/edit-products/:id', (req, res) => {
   })
 })
 
+router.get('/all-orders', async(req, res) => {
+  let orders = await productHelper.getAllOrders();
+  res.render('admin/all-orders', {admin: true,orders});
+})
+
+router.get('/all-users', async(req, res) => {
+  let users = await productHelper.getAllUsers();
+  console.log(users);
+  res.render('admin/all-users', {admin: true,users});
+})
+
 
 
 module.exports = router;
