@@ -3,6 +3,7 @@ var collection = require('../config/collection');
 const bcrypt = require('bcrypt');
 var objectId = require('mongodb').ObjectId;
 const { response } = require('express');
+var crypto = require('crypto');
 
 
 module.exports = {
@@ -242,7 +243,8 @@ module.exports = {
                 products : products,
                 totalAmount : total,
                 status : status,
-                date : new Date() 
+                date : new Date(), 
+                orderNumber : crypto.randomInt(111111,999999)
             }
 
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj)
@@ -252,9 +254,7 @@ module.exports = {
             })
         })
     },
-
-
-
+    
 
 
     getCartProductList:(userId) => {

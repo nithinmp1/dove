@@ -11,6 +11,9 @@ var fileUpload = require('express-fileupload');
 var session = require('express-session');
 var db = require('./config/connection')
 var app = express();
+var hbsn = hbs.create({});
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,6 +34,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
 app.use(session({secret:"key",cookie:{maxAge:600000}}))
+// app.use(crypto());
+
 
 db.connect((err) =>{
   if(err) console.log("Connection Error"+err)
@@ -50,10 +55,23 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
+  // res.locals.toastr = req.toastr.render();
 
   // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+hbsn.handlebars.registerHelper("eq", function(string1, string2, options) {
+  var str1 = string1.toString();
+  var str2 = string2.toString();
+  if (str1 === str2) {
+    return options.fn(this);
+  } else {
+    return options.inverse(this);
+  }
+});
+
 
 module.exports = app;

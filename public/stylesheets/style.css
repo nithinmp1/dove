@@ -6,3 +6,19 @@
 a {
   color: #00B7FF;
 } */
+
+.nav-background {
+  background-color: rgb(224, 88, 88);
+}
+
+.letter-color {
+  color: white !important;
+}
+
+nav a:hover {
+  color: rgb(56 47 60) !important;
+}
+
+
+
+

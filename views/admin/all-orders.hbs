@@ -13,25 +13,41 @@
             <th scope="col">Amount</th>
             <th scope="col">Payment Method</th>
             <th scope="col">Status</th>
-            <th scope="col">Options</th>
+            {{!-- <th scope="col">Options</th> --}}
             </tr>
         </thead>
         <tbody>
             {{#each orders}}
             <tr>
             <th scope="row">{{@index}}</th>
-            <td>{{this._id}}</td>
+            <td><a href="/admin/view-order-details/{{this._id}}">#{{this.orderNumber}}</a></td>
             <td>{{this.users.Name}}</td>
             <td>{{this.users.Email}}</td>
             <td>{{this.totalAmount}}</td>
             <td>{{this.paymentMethod}}</td>
-            <td>{{this.status}}</td>
-            
             <td>
-                <a href="/admin/edit-product/{{this._id}}" class="btn btn-primary">View Details</a>
-                {{!-- <a href="/admin/delete-product/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you sure to want delete {{this.Name}}')">Delete</a> --}}
+                {{#eq this.status 'Confirmed'}}
+                    <span class="badge badge-pill badge-primary">{{this.status}}</span>
+                    
+                {{/eq}}
+                {{#eq this.status 'Shipped'}}
+                    <span class="badge badge-pill badge-secondary">{{this.status}}</span>
+                {{/eq}}
+
+                {{#eq this.status 'Out for delivery'}}
+                    <span class="badge badge-pill badge-info">{{this.status}}</span>
+                {{/eq}}
+
+                {{#eq this.status 'Delivered'}}
+                    <span class="badge badge-pill badge-success">{{this.status}}</span>
+                {{/eq}}
+            </td>
+            
+            {{!-- <td> --}}
+                {{!-- <a href="/admin/edit-product/{{this._id}}" class="btn btn-primary">View Details</a> --}}
+                {{!-- <a href="/admin/view-order-details/{{this._id}}" class="btn btn-primary">View Details</a> --}}
                 
-                </td>
+            {{!-- </td> --}}
             </tr>
             {{/each}}
         </tbody>

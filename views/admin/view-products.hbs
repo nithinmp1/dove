@@ -1,43 +1,50 @@
- <section>
+<section>
     <div class="container">
         <div class="row mt-5">
             <a style="margin-bottom:15px;" href="/admin/add-products" class="btn btn-success ml-auto">Add Products</a>
         </div>
         <table class="table mt-5" id="productsTable">
-        <thead>
-            <tr>
-            <th scope="col">No</th>
-            <th scope="col">Name</th>
-            <th scope="col">Category</th>
-            <th scope="col">Description</th>
-            <th scope="col">Price</th>
-            <th scope="col">Image</th>
-            <th scope="col">Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each products}}
-            <tr>
-            <th scope="row">{{@index}}</th>
-            <td>{{this.Name}}</td>
-            <td>{{this.category}}</td>
-            <td>{{this.Description}}</td>
-            <td>{{this.Price}}</td>
-            <td><img style="width: 75px;height:75px;" src="/product-images/{{this._id}}.jpg"></td>
-            <td>
-                <a href="/admin/edit-product/{{this._id}}" class="btn btn-primary">Edit</a>
-                <a href="/admin/delete-product/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you sure to want delete {{this.Name}}')">Delete</a>
-                
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                    <th scope="row">{{@index}}</th>
+                    <td>{{this.Name}}</td>
+                    <td>{{this.category}}</td>
+                    <td>{{this.Description}}</td>
+                    <td>{{this.Price}}</td>
+                    <td><img style="width: 75px;height:75px;" src="/product-images/{{this._id}}.jpg"></td>
+                    <td>
+                        <a style="color:rgb(174, 174, 29)" href="/admin/edit-product/{{this._id}}">
+                        <i class="fa fa-pencil"></i>
+
+
+                        </a>
+                        <a style="color:red" href="/admin/delete-product/{{this._id}}"
+                            onclick="return confirm('Are you sure to want delete {{this.Name}}')">
+                                <i class="fa fa-trash"></i>
+                            </a>
+
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
         </table>
     </div>
 </section>
 
 <script>
-    $(document).ready( function () {
-    $('#productsTable').DataTable();
-} );
+    $(document).ready(function () {
+        $('#productsTable').DataTable();
+    });
 </script>
