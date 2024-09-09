@@ -20,5 +20,8 @@
     "morgan": "~1.9.1",
     "nodemon": "^2.0.15",
     "util": "^0.12.4"
+  },
+  "devDependencies": {
+    "migrate-mongo": "^11.0.0"
   }
 }

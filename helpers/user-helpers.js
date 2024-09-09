@@ -222,7 +222,11 @@ module.exports = {
                     }
                 }
             ]).toArray()
-            resolve(total[0].total)
+
+            if (Array.isArray(total) && total.length > 0) {
+                resolve(total[0].total ?? 0); // Default to 0 if total[0].total is null or undefined
+            }
+            resolve(0);
         })
     },
 
